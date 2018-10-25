@@ -3,7 +3,7 @@
 # 1 или более символов в верхнем регистре.
 # Т.е. из строки "mtMmEZUOmcq" нужно получить ['mt', 'm', 'mcq']
 # Решить задачу двумя способами: с помощью re и без.
-
+""" 
 line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
        'GIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLeclMwAoktKlfUBJHPsnawvjPhfgewVzK'\
        'TUfSYtBydXaVIpxWjNKgXANvIoumesCSSvjEGRJosUfuhRRDUuTQwLlJJJDdkVjfSAHqn'\
@@ -24,21 +24,21 @@ line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
 result = []
 lows = ""
 for i in range(len(line)):
-    if line[i] == line[i].upper():
+    if line[i] != line[i].upper():
+        lows += line[i]
+    else:
         if(len(lows) > 0):
             result.append(lows)
             lows = ""
-    else:
-        lows += line[i]
     if i == len(line) - 1 and len(lows) > 0:
-        result.append(lows)            
+        result.append(lows)
 print(result)
 
 # v2
 import re
 result = re.findall("[a-z]+", line)
 print(result)
-
+ """
 # Задание-2:
 # Вывести символы в верхнем регистре, слева от которых находятся
 # два символа в нижнем регистре, а справа - два символа в верхнем регистре.
@@ -63,9 +63,41 @@ line_2 = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysm'\
        'JFaXiUWgsKQrDOeZoNlZNRvHnLgCmysUeKnVJXPFIzvdDyleXylnKBfLCjLHntltignbQ'\
        'oiQzTYwZAiRwycdlHfyHNGmkNqSwXUrxGC'
 
+#v1
+import re
+groups = re.findall("([a-z]{2,})([A-Z]+)([A-Z]{2})", line_2)
+result = list(map(lambda x: x[1], groups))
+print(result)
+
+#v2
+
+
 # Задание-3:
 # Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
 # произвольными целыми цифрами, в результате в файле должно быть
 # 2500-значное произвольное число.
 # Найдите и выведите самую длинную последовательность одинаковых цифр
 # в вышезаполненном файле.
+
+""" import os
+import random
+
+dir_out = "files"
+with open(os.path.join(dir_out, "number.txt"), 'w', encoding='UTF-8') as f:
+    text = "".join(str(random.randint(0,10)) for i in range(0, 2500))
+    f.write(text)
+
+max_length = 0
+curr_length = 0
+number = ""
+for ch in text:
+    if(ch == number):
+        curr_length += 1
+    else:
+        number = ch
+        if(curr_length > max_length):
+            max_length = curr_length
+        curr_length = 0
+print(number * max_length)
+
+ """
