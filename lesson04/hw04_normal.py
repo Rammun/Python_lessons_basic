@@ -3,7 +3,7 @@
 # 1 или более символов в верхнем регистре.
 # Т.е. из строки "mtMmEZUOmcq" нужно получить ['mt', 'm', 'mcq']
 # Решить задачу двумя способами: с помощью re и без.
-""" 
+
 line = 'mtMmEZUOmcqWiryMQhhTxqKdSTKCYEJlEZCsGAMkgAYEOmHBSQsSUHKvSfbmxULaysmNO'\
        'GIPHpEMujalpPLNzRWXfwHQqwksrFeipEUlTLeclMwAoktKlfUBJHPsnawvjPhfgewVzK'\
        'TUfSYtBydXaVIpxWjNKgXANvIoumesCSSvjEGRJosUfuhRRDUuTQwLlJJJDdkVjfSAHqn'\
@@ -38,7 +38,7 @@ print(result)
 import re
 result = re.findall("[a-z]+", line)
 print(result)
- """
+
 # Задание-2:
 # Вывести символы в верхнем регистре, слева от которых находятся
 # два символа в нижнем регистре, а справа - два символа в верхнем регистре.
@@ -70,7 +70,20 @@ result = list(map(lambda x: x[1], groups))
 print(result)
 
 #v2
-
+word_lower = ""
+word_upper = ""
+result = []
+for ch in line_2:
+    if(ch == ch.upper()):
+        word_upper += ch
+    else:
+        if(word_upper != ""):
+            if(len(word_lower) > 1 and len(word_upper) > 2):
+                result.append(word_upper[:-2])
+            word_lower = ""
+            word_upper = ""
+        word_lower += ch
+print(result)
 
 # Задание-3:
 # Напишите скрипт, заполняющий указанный файл (самостоятельно задайте имя файла)
@@ -79,11 +92,10 @@ print(result)
 # Найдите и выведите самую длинную последовательность одинаковых цифр
 # в вышезаполненном файле.
 
-""" import os
+import os
 import random
 
-dir_out = "files"
-with open(os.path.join(dir_out, "number.txt"), 'w', encoding='UTF-8') as f:
+with open(os.path.join("files", "number.txt"), 'w', encoding='UTF-8') as f:
     text = "".join(str(random.randint(0,10)) for i in range(0, 2500))
     f.write(text)
 
@@ -91,7 +103,7 @@ max_length = 0
 curr_length = 0
 number = ""
 for ch in text:
-    if(ch == number):
+    if(number == ch):
         curr_length += 1
     else:
         number = ch
@@ -99,5 +111,3 @@ for ch in text:
             max_length = curr_length
         curr_length = 0
 print(number * max_length)
-
- """
