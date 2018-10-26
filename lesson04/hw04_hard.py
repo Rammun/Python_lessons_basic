@@ -13,6 +13,8 @@ matrix = [[1, 0, 8],
 
 # Суть сложности hard: Решите задачу в одну строку
 
+print("rotate_matrix = ", list(map(list, zip(*matrix))))
+
 # Задание-2:
 # Найдите наибольшее произведение пяти последовательных цифр в 1000-значном числе.
 # Выведите произведение и индекс смещения первого числа последовательных 5-ти цифр.
@@ -39,6 +41,20 @@ number = """
 05886116467109405077541002256983155200055935729725
 71636269561882670428252483600823257530420752963450"""
 
+from functools import reduce
+from random import randint
+
+number = "".join(str(randint(0,9)) for i in range(0, 1000))
+
+max_multiplication = 1
+index = 0
+for i in range(len(number) - 5):
+    multiply = reduce(lambda x, y: int(x) * int(y), number[i:(i + 5)])
+    if(max_multiplication < multiply):
+        max_multiplication = multiply
+        index = i
+print(number, "\nindex = ", index, "max_multiplication = ", max_multiplication)
+
 
 # Задание-3 (Ферзи):
 # Известно, что на доске 8×8 можно расставить 8 ферзей так, чтобы они не били
@@ -47,3 +63,48 @@ number = """
 # Программа получает на вход восемь пар чисел,
 # каждое число от 1 до 8 — координаты 8 ферзей.
 # Если ферзи не бьют друг друга, выведите слово NO, иначе выведите YES.
+
+def get_matrix(n):
+    matrix = [[0 for j in range(n)] for i in range(n)]
+    return matrix
+
+def init_matrix(matrix, data):
+    for d in data:
+        matrix[ d[0] ][ d[1] ] = 1
+    return matrix
+
+def check_horizontal(matrix):
+    for row in matrix:
+        if(sum(row) > 1):
+            return False
+    return True
+
+def chek_vertical(matrix):
+    rotate_matrix = list(map(list, zip(*matrix)))
+    return check_horizontal(rotate_matrix)
+
+def check_diagonals1(matrix):
+    for i in range(len(matrix)):
+        count = 0
+        for j in range(i + 1):
+            if(matrix[j][i - j] == 1):
+                count += 1
+                if(count > 1):
+                    return False
+    return True
+
+def check_diagonals2(matrix):
+    rotate_matrix = list(map(list, zip(*matrix)))
+    return check_diagonals1(rotate_matrix)
+
+def check_data(data):
+    matrix = get_matrix(8)
+    init_matrix(matrix, data)
+    if check_horizontal(matrix) and chek_vertical(matrix) and check_diagonals1(matrix) and check_diagonals2(matrix):
+        print("YES")
+    else:
+        print("NO")
+
+data = [(0, 5), (1, 1), (2, 6), (3, 0), (4, 3), (5, 7), (6, 4), (7, 2)]
+check_data(data)
+

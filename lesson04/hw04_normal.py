@@ -96,7 +96,7 @@ import os
 import random
 
 with open(os.path.join("files", "number.txt"), 'w', encoding='UTF-8') as f:
-    text = "".join(str(random.randint(0,10)) for i in range(0, 2500))
+    text = "".join(str(random.randint(0,9)) for i in range(2500))
     f.write(text)
 
 max_length = 0

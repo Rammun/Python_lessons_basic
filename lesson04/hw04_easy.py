@@ -32,7 +32,7 @@ print(result)
 
 import random
 
-list_in = [random.randint(-1000, 1000) for i in range(0, 20)]
+list_in = [random.randint(-999, 999) for i in range(20)]
 print(list_in)
 result = list(filter(lambda i: i > 0 and i % 3 == 0 and i % 4 != 0, list_in))
 print(result)
