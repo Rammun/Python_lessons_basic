@@ -30,8 +30,11 @@ def get_current_path():
 def go_to_folder():
 	print("--- Перейти в папку ---")
 	path = input("Путь: ")
+	if not os.path.exists(dirname):
+		print("Невозможно перейти!")
+		return
 	os.chdir(path)
-	print("--- OK")
+	print("--- Успешно перешел")
 
 def view_contents():
 	print("--- Просмотреть содержимое ---")
@@ -39,7 +42,7 @@ def view_contents():
 	names = [name for name in os.listdir(current_directory)]
 	for d in names:
 		print(d)
-	print("--- OK")
+	print("--- Успешно")
 
 def delete_folder():
 	print("--- Удалить папку ---")
@@ -48,7 +51,7 @@ def delete_folder():
 		print("В текущем каталоге папки с таким именем не существует!")
 		return
 	os.rmdir(dirname)
-	print("--- OK")
+	print("--- Успешно удалено")
 
 def create_folder():
 	print("--- Создать папку ---")
@@ -57,7 +60,7 @@ def create_folder():
 		print("В текущем каталоге папка с таким именем уже существует!")
 		return
 	os.makedirs(dirname)
-	print("--- OK")
+	print("--- Успешно создано")
 
 def start():
 	actions = {
