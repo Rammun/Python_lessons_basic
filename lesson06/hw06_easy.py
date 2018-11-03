@@ -70,33 +70,41 @@ class EqualBarrel:
 		}
 
 	def _get_parallel_sides(self):
-		if((abs(self.AB()["vk"]) == abs(self.CD()["vk"]) and self.BC()["length"] == self.DA()["length"])):
-			return ((self.AB(), self.CD()), (self.BC(), self.DA()))
-		if((abs(self.BC()["vk"]) == abs(self.DA()["vk"]) and self.AB()["length"] == self.BC()["length"])):
-			return ((self.BC(), self.DA()), (self.AB(), self.BC()))
+		if(abs(self.AB["vk"]) == abs(self.CD["vk"]) and self.BC["length"] == self.DA["length"]):
+			return ((self.AB, self.CD), (self.BC, self.DA))
+		if(abs(self.BC["vk"]) == abs(self.DA["vk"]) and self.AB["length"] == self.BC["length"]):
+			return ((self.BC, self.DA), (self.AB, self.CD))
 		return None
 
+	@property
 	def A(self):
 		return self._a
 
+	@property
 	def B(self):
 		return self._b
 
+	@property
 	def C(self):
 		return self._c
 	
+	@property
 	def D(self):
 		return self._d
 
+	@property
 	def AB(self):
 		return self._vector(self._a, self._b)
 
+	@property
 	def BC(self):
 		return self._vector(self._b, self._c)
 	
+	@property
 	def CD(self):
 		return self._vector(self._c, self._d)
 
+	@property
 	def DA(self):
 		return self._vector(self._d, self._a)
 
@@ -105,11 +113,11 @@ class EqualBarrel:
 		if sides == None:
 			return False
 		return True
-		
+	
 	def get_perimetr(self):
 		if(not self.is_equal_barrel()):
 			return None
-		p = self.AB()["length"] + self.BC()["length"] + self.CD()["length"] + self.DA()["length"]
+		p = self.AB["length"] + self.BC["length"] + self.CD["length"] + self.DA["length"]
 		return round(p, 1)
 
 	def get_square(self):
